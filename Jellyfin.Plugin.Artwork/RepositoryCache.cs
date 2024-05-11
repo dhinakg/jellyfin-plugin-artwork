@@ -62,7 +62,7 @@ namespace Jellyfin.Plugin.Artwork
             return remoteImageInfos;
         }
 
-        private static ArtworkDto? GetMatch(Type itemType, IHasProviderIds providerIds, IReadOnlyList<ArtworkDto> artworkDtos)
+        private ArtworkDto? GetMatch(Type itemType, IHasProviderIds providerIds, IReadOnlyList<ArtworkDto> artworkDtos)
         {
             _logger.LogDebug("Looking at providers {Providers}", providerIds);
             _logger.LogDebug("Looking at artworks {Artworks}", artworkDtos);
@@ -139,7 +139,7 @@ namespace Jellyfin.Plugin.Artwork
             return null;
         }
 
-        private static void AddImageInfos(
+        private void AddImageInfos(
             ArtworkRepo repo,
             string itemKey,
             ref List<RemoteImageInfo> imageInfos,
