@@ -137,6 +137,8 @@ namespace Jellyfin.Plugin.Artwork
                 }
             }
 
+            _logger.LogDebug("Could not find any providers");
+
             return null;
         }
 
