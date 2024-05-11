@@ -64,12 +64,15 @@ namespace Jellyfin.Plugin.Artwork
 
         private static ArtworkDto? GetMatch(Type itemType, IHasProviderIds providerIds, IReadOnlyList<ArtworkDto> artworkDtos)
         {
+            _logger.LogDebug("Looking at providers {Providers}", providerIds);
+            _logger.LogDebug("Looking at artworks {Artworks}", artworkDtos);
             foreach (var artworkDto in artworkDtos)
             {
                 if (artworkDto.Providers == null)
                 {
                     // No providers, skip.
                     // TODO match on name
+                    _logger.LogDebug("No providers found");
                     continue;
                 }
 
@@ -145,6 +148,7 @@ namespace Jellyfin.Plugin.Artwork
             if (artworkDto?.ArtworkImages == null)
             {
                 // Repo or images not found.
+                _logger.LogDebug("ArtworkImages is null");
                 return;
             }
 
@@ -210,6 +214,10 @@ namespace Jellyfin.Plugin.Artwork
                 {
                     _memoryCache.Set(repositoryUrl, artworkDto, _cacheExpire);
                     return artworkDto;
+                }
+                else
+                {
+                    _logger.LogDebug("artworkDto is null");
                 }
             }
             catch (HttpRequestException e)
