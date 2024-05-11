@@ -68,6 +68,7 @@ namespace Jellyfin.Plugin.Artwork
             _logger.LogDebug("Looking at artworks {Artworks}", artworkDtos);
             foreach (var artworkDto in artworkDtos)
             {
+                _logger.LogDebug("Looking at artwork {Artwork} with providers {Providers}", artworkDto, artworkDto.Providers);
                 if (artworkDto.Providers == null)
                 {
                     // No providers, skip.
