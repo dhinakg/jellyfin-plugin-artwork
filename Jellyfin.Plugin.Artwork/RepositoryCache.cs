@@ -64,18 +64,22 @@ namespace Jellyfin.Plugin.Artwork
 
         private ArtworkDto? GetMatch(Type itemType, IHasProviderIds providerIds, IReadOnlyList<ArtworkDto> artworkDtos)
         {
-            _logger.LogDebug("Looking at providers {Providers}", providerIds);
-            _logger.LogDebug("Looking at artworks {Artworks}", artworkDtos);
+            _logger.LogDebug("Looking at providers {Providers}", providerIds.ProviderIds);
+            // _logger.LogDebug("Looking at artworks {Artworks}", artworkDtos);
             foreach (var artworkDto in artworkDtos)
             {
-                _logger.LogDebug("Looking at artwork {Artwork} with providers {Providers}", artworkDto, artworkDto.Providers);
+                _logger.LogDebug("Looking at artwork {Artwork} with providers {Providers}", artworkDto.Name, artworkDto.Providers);
                 if (artworkDto.Providers == null)
                 {
                     // No providers, skip.
                     // TODO match on name
-                    _logger.LogDebug("No providers found");
+                    _logger.LogDebug("Artwork has no providers");
                     continue;
                 }
+                _logger.LogDebug("Artwork IMDB: {IMDB}", artworkDto.Providers.Imdb);
+                _logger.LogDebug("Artwork TMDB: {TMDB}", artworkDto.Providers.Tmdb);
+                _logger.LogDebug("Artwork TVDB: {TVDB}", artworkDto.Providers.Tvdb);
+
 
                 if (providerIds.TryGetProviderId("AniList", out var providerId)
                     && string.Equals(providerId, artworkDto.Providers.Anilist, StringComparison.OrdinalIgnoreCase))
