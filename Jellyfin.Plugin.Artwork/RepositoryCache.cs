@@ -76,10 +76,10 @@ namespace Jellyfin.Plugin.Artwork
                     _logger.LogDebug("Artwork has no providers");
                     continue;
                 }
+
                 _logger.LogDebug("Artwork IMDB: {IMDB}", artworkDto.Providers.Imdb);
                 _logger.LogDebug("Artwork TMDB: {TMDB}", artworkDto.Providers.Tmdb);
                 _logger.LogDebug("Artwork TVDB: {TVDB}", artworkDto.Providers.Tvdb);
-
 
                 if (providerIds.TryGetProviderId("AniList", out var providerId)
                     && string.Equals(providerId, artworkDto.Providers.Anilist, StringComparison.OrdinalIgnoreCase))
